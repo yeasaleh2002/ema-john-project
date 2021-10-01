@@ -47,3 +47,8 @@ const Product = (props) => {
 // ------------------- Jodi kono event handler ar data pass korte hoy tobe (** jodi data pass kora na hoy ta hole just event handler ar name ta use korlei hobe.) parameter k pathanor jonno bracket ar modde likte hoy. Likte gele data gula aber auto  execute hoye jay. Ai auto execution off korar jonno akta Anonymous function use korte hoy. Ar fole button a click korle tobei function k call korbe and ai function ar modde ja ase ta execution hobe.   -----------------------------
 
 export default Product;
+
+
+
+
+
