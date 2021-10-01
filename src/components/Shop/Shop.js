@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { addToDb, getStoredCart } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
@@ -43,7 +44,21 @@ const Shop = () => {
    //------------- array of object theke kono particular object pete hole 2 ta method ase. filter(je jinis ta dibo oitar sate joto gula matching pabe toko gula output dibe. ) and find(find use korle jodi oi item k peye thake tobe just oi ta k dibe and jodi item na thake to undefind dekhabe.). || amra find use korbo. Pottekta loop kore kore akta key astecilo. and oi object ar key gula k naw. newyar pore pottekta key ar jonno joto gula product ase, se khane ota k loop thoraw korte hobe. and key ase amon product khujbe.  -------------------
 
    const handleAddToCart = (product) => {
-       const newCart = [...cart, product];
+
+    // fixed quantity
+    const exists = cart.find(pd => pd.key === product.key);
+    let newCart = [];
+
+    if(exists) {
+        const rest = cart.filter(pd => pd.key !== product.key);
+        exists.quantity = exists.quantity + 1;
+        newCart = [...rest, product]
+    }
+
+    else{
+        product.quantity = 1;
+        newCart = [...cart, product]
+    }
        setCart(newCart);
 
        //---------------------------- new cart ar value hobe Existing(viddoman) je cart ase tar sob gula element k gula k copy korte hobe.COPY korar opay holo spread oprator(...)cart use korte hobe. ate cart ar modde joto gula product ase thaklo and na thakle nai. jodi incase theke tobe se gula k agy upadan hisebe bosate hobe. and ...cart ar por comma(,) diya event handler ar je parameter thakbe seta bosate hobe. tahole essentially notun akta array declare kora hosse , je khane ager cart ar element gula rakha hosse  and notun jaiga jog kora hosse product. AKDOM first a ...cart a kono kiso thakbe na se jonno akta hobe and aste aste product jog hobe. and sob ses a setCart(newCart) call kore dite hobe.ATE NOTUN VHABE CART ADD HOYE JABE.---------------------------
@@ -96,7 +111,11 @@ const Shop = () => {
                  }
             </div>
             <div className="cart-container">
-                <Cart cart = {cart}></Cart>
+                <Cart cart = {cart}>
+                     <Link to="/orderReview">
+                     <button className="add-to-cart-button">Review Your Order</button>
+                     </Link>
+                </Cart>
             </div>
      
         </div>

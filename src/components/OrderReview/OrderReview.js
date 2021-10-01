@@ -3,12 +3,17 @@ import useCart from '../../updatehooks/useCart';
 import useProducts from '../../updatehooks/useProducts';
 import Cart from '../Cart/Cart'
 import ReviewItem from '../ReviewItem/ReviewItem';
-import {removeFromDb} from '../../utilities/fakedb';
+import {clearTheCart, removeFromDb} from '../../utilities/fakedb';
+import { useHistory } from 'react-router';
 
 const OrderReview = () => {
 
 const [products] = useProducts();
 const [cart, setCart] = useCart(products);
+// useHistory for using button event handler
+const history = useHistory();
+
+
 const handleRemove = key => {
   const newCart = cart.filter(product => product.key !== key)
   setCart(newCart);
@@ -16,6 +21,15 @@ const handleRemove = key => {
   removeFromDb(key);
 } 
 
+const handlePlaceOrder = () => {
+        history.push('/placeOrder');
+
+        // ---------- kono order confirm korar por seta k ui and database/ local stroage theke clear korte hobe.
+        // clear cart data from ui
+        setCart([]);
+        // clear cart data from local storage --- fakedb te clearTheCart name a function kora ase. seta k call kore dite hobe.
+        clearTheCart();
+}
 
 
   return (
@@ -37,7 +51,10 @@ const handleRemove = key => {
 
 
       <div className= "cart-container">
-      <Cart cart={cart}></Cart>
+      <Cart cart={cart}>
+      <button onClick={handlePlaceOrder} className="add-to-cart-button">Place Order</button>
+
+      </Cart>
 
       </div>
 

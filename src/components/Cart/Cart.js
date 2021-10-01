@@ -39,6 +39,10 @@ const grandTotal = total + shipping + tax;
             <p>Shipping: ${shipping}</p>
             <p>Tax: ${tax.toFixed(2)}</p>
             <p>Grand Total: ${grandTotal.toFixed(2)}</p>
+            {props.children}
+
+            {/* Kono akta component je khane amra use kortechi, tar pet ar modde amra jai kori na kno seta amra cart ar modde dekhaite pari. AND jei jaiga dekhabo sekhane dynamic vhabe bole dite hobe {props.children}. taholei aita kaj korbe.  */}
+
         </div>
     );
 };
